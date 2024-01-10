@@ -168,9 +168,9 @@ public class NFCPassportModel {
         return false
     }
 
-    private var certificateSigningGroups : [CertificateType:X509Wrapper] = [:]
+    public var certificateSigningGroups : [CertificateType:X509Wrapper] = [:]
 
-    private var passportDataElements : [String:String]? {
+    public var passportDataElements : [String:String]? {
         guard let dg1 = dataGroupsRead[.DG1] as? DataGroup1 else { return nil }
         
         return dg1.elements

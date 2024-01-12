@@ -1,3 +1,5 @@
+This works hella well with .ldif
+
 # Master list generator
 
 ## What is it?

@@ -34,12 +34,13 @@ def main( filename ):
         masterLists = readInMasterListFile( filename )
 
     print( f"Read in {len(masterLists)} masterlist files" )
-    print( f"Read in {cns} CNS" )
+    # print( f"Read in {cns} CNS" )
 
     for index, ml in enumerate(masterLists):
         certNr = 1
         print( "-----------------------------------" )
-        print(f"Verifying and extracting MasterList {index} - {cns[index]}")
+        # print(f"Verifying and extracting MasterList {index} - {cns[index]}")
+        print(f"Verifying and extracting MasterList {index}")
         try:
             extractCertsFromMasterlist( ml )
         except Exception as e:
@@ -57,11 +58,12 @@ def readAndExtractLDIFFile( file ):
     cns = []
     cn = ""
     with open(file, "r") as inf:
+        cert = ""
         for line in inf:
             if line.startswith( "cn: "):
                 cn = line[4:]
-            elif line.startswith( "CscaMasterListData:: "):
-                cert = line[21:]
+            elif line.startswith( "pkdMasterListContent:: "):
+                cert = line[23:]
                 adding = True
             elif not line.startswith(" ") and adding == True:
                 adding = False
@@ -91,9 +93,11 @@ def readInMasterListFile( file ):
 def extractCertsFromMasterlist( masterList ):
     global totalCerts
 
+    print("masterList", masterList)
     # Run openssl cms to verify and extract the signed data
     cmd = f"openssl cms -inform der -noverify -verify"
     (signedData, err) = execute( cmd, masterList )
+    print("err", err)
 
     err = err.decode("utf8").strip().replace("CMS ", "")
 

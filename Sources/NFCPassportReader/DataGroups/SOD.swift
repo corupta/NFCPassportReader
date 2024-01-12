@@ -63,8 +63,8 @@ import OpenSSL
 public class SOD : DataGroup {
     
     public private(set) var pkcs7CertificateData : [UInt8] = []
-    private var asn1 : ASN1Item!
-    private var pubKey : OpaquePointer?
+    public var asn1 : ASN1Item!
+    public var pubKey : OpaquePointer?
     
     required init( _ data : [UInt8] ) throws {
         try super.init(data)

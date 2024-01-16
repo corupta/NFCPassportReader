@@ -24,7 +24,7 @@ public class PassportReader : NSObject {
     
     private var dataGroupsToRead : [DataGroupId] = []
     private var readAllDatagroups = false
-    private var skipSecureElements = true
+    private var skipSecureElements = false
     private var skipCA = false
     private var skipPACE = false
 

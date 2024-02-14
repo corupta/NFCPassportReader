@@ -146,6 +146,12 @@ public class NFCPassportModel {
         }
     }
 
+    public var passportPhoto : [UInt8]? {
+        guard let dg2 = dataGroupsRead[.DG2] as? DataGroup2 else { return nil }
+        
+        return dg2.imageData
+    }
+
 #if os(iOS)
     public var passportImage : UIImage? {
         guard let dg2 = dataGroupsRead[.DG2] as? DataGroup2 else { return nil }

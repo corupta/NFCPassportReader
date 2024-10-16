@@ -35,12 +35,13 @@ def main( filename ):
         cns = ["MasterList ml file"]
 
     print( f"Read in {len(masterLists)} masterlist files" )
-    print( f"Read in {cns} CNS" )
+    # print( f"Read in {cns} CNS" )
 
     for index, ml in enumerate(masterLists):
         certNr = 1
         print( "-----------------------------------" )
-        print(f"Verifying and extracting MasterList {index} - {cns[index]}")
+        # print(f"Verifying and extracting MasterList {index} - {cns[index]}")
+        print(f"Verifying and extracting MasterList {index}")
         try:
             extractCertsFromMasterlist( ml )
         except Exception as e:
@@ -93,9 +94,11 @@ def readInMasterListFile( file ):
 def extractCertsFromMasterlist( masterList ):
     global totalCerts
 
+    print("masterList", masterList)
     # Run openssl cms to verify and extract the signed data
     cmd = f"openssl cms -inform der -noverify -verify"
     (signedData, err) = execute( cmd, masterList )
+    print("err", err)
 
     err = err.decode("utf8").strip().replace("CMS ", "")
 
